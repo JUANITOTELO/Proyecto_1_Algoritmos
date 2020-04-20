@@ -1,8 +1,13 @@
 #ifndef __PR1GRAFOS_HPP
 #define __PR1GRAFOS_HPP
 
+#include <list>
+#include <stdlib.h>
+#include <time.h>
+#include <map>
 #include <iostream>
 #include <string>
+#define MAX 100
 
 using namespace std;
 
@@ -37,6 +42,8 @@ class Grafo{
 		void listAdya();
 		void eliminarArista(Vertice *origen, Vertice *destino);
 		void eliminarVertice(Vertice *vert);
+		void crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
+		void crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
 		void anular();
 };
 
