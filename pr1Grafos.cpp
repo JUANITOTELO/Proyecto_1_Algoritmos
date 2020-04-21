@@ -218,7 +218,7 @@ void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 
 
 //Función para crear una matriz y listata de adyacencia aleatoria que solo apunta a un nodo y ese nodo no apunta a nada
-void Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
+Grafo Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 	char matrizAdy[MAX][MAX];
 	/*En esta parte se crea la matriz de dimencinoes nlxnl*/
 	map<char,int> mymap; // Aqui Estan los valores de las aristas 
@@ -267,7 +267,5 @@ void Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 	cout<<"Lista de Adyasencia de Grafo simple: \n";
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
-	cout<<"Grafo eliminado."<<endl;
-	myGrafo.anular();
-	myGrafo.listAdya();
+	return myGrafo;
 }

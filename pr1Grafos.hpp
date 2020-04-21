@@ -43,8 +43,9 @@ class Grafo{
 		void eliminarArista(Vertice *origen, Vertice *destino);
 		void eliminarVertice(Vertice *vert);
 		void crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
-		void crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
+		Grafo crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
 		void anular();
+		
 };
 
 
