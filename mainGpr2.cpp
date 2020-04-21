@@ -2,7 +2,7 @@
 
 int main(){
 	Grafo myGrafo;
-	int nl = 6;//~ nl es numero de vertices(nodos)
+	int nl = 15;//~ nl es numero de vertices(nodos)
 	//myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
 	myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);
 	cout<<endl;
