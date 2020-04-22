@@ -253,19 +253,23 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 	for(int i = 1; i<=nl; i++){
 		for(int j= 1; j<=nl; j++){
 			int num = 48+rand()%(58-48);
-			mymap.insert ( std::pair<char,int>(num,num-48) );
+			int numR = num-48;
+			mymap.insert ( std::pair<char,int>(num,numR) );
 			int p = mymap.at(num);
 			if(p != 0 && (matrizAdy[i][0] != matrizAdy[0][j]) && (matrizAdy[i][j] == 48 && matrizAdy[i][j] == 48)){
 				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
 				matrizAdy[j][i] = 49;// ~ 1 = 49 ascii
 				matrizValores.matriz[j][i] = num;
+				matrizValores.matrizNumE[j-1][i-1] = numR;
 			}else{
 				matrizAdy[j][i] = 48;// ~ 0 = 48 ascii
 				matrizValores.matriz[j][i] = 48;
+				numR = 0;
+				matrizValores.matrizNumE[j-1][i-1] = numR;
 			}
 		}
 	}
-	cout<<"Matriz de Adyasencia de Grafo simple: \n";
+	cout<<"Matriz de Adyasencia de Grafo simple: \n"<<endl;
 	for(int i = 0; i<=nl; i++){
 		for(int j= 0; j<=nl; j++){
 			cout<<" "<<matrizAdy[j][i];
@@ -273,7 +277,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 		cout<<endl;
 	}
 	
-	cout<<"Lista de Adyasencia de Grafo simple: \n";
+	cout<<"Lista de Adyasencia de Grafo simple: \n"<<endl;
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
 	return GrMat{myGrafo, matrizValores};
@@ -282,10 +286,21 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 
 //~ Función para imprimir valores de las aristas
 void Grafo::iAristas(ArrM ma){
-	cout<<"Matriz con valores de las aristas del Grafo simple: \n";
+	cout<<"Matriz con valores de las aristas del Grafo simple: \n"<<endl;
 	for(int i = 0; i<=ma.nl; i++){
 		for(int j= 0; j<=ma.nl; j++){
 			cout<<" "<<ma.matriz[j][i];
+		}
+		cout<<endl;
+	}
+}
+
+//~ Función para imprimir valores de las aristas de forma entera
+void Grafo::eAristas(ArrM ma){
+	cout<<"Matriz con valores en tipo entero de las aristas del Grafo simple: \n"<<endl;
+	for(int i = 0; i<=ma.nl-1; i++){
+		for(int j= 0; j<=ma.nl-1; j++){
+			cout<<" "<<ma.matrizNumE[j][i];
 		}
 		cout<<endl;
 	}

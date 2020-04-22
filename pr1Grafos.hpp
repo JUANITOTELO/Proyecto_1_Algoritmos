@@ -48,12 +48,14 @@ class Grafo{
 		void crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
 		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
 		void iAristas(ArrM);
+		void eAristas(ArrM);
 		void anular();
 		
 };
 
 struct ArrM{
 	char matriz[MAX][MAX];
+	int matrizNumE[MAX][MAX];
 	int nl;
 };
 

@@ -9,6 +9,8 @@ int main(){
 	cout<<endl;
 	myGrafo = GyM.g;
 	myGrafo.iAristas(GyM.m);
+	cout<<endl;
+	myGrafo.eAristas(GyM.m);
 	cout<<"Eliminado grafo.. "<<endl;
 	myGrafo.anular();
 	return 0;
