@@ -2,10 +2,13 @@
 
 int main(){
 	Grafo myGrafo;
-	int nl = 15;//~ nl es numero de vertices(nodos)
+	GrMat GyM;
+	int nl = 25;
 	//myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
-	myGrafo = myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);
+	GyM = myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);
 	cout<<endl;
+	myGrafo = GyM.g;
+	myGrafo.iAristas(GyM.m);
 	cout<<"Eliminado grafo.. "<<endl;
 	myGrafo.anular();
 	return 0;

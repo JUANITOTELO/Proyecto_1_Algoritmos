@@ -13,6 +13,9 @@ using namespace std;
 
 class Arista;
 
+struct GrMat;
+struct ArrM;
+
 class Vertice{
 	Vertice *sig;
 	Arista *ady;
@@ -43,11 +46,20 @@ class Grafo{
 		void eliminarArista(Vertice *origen, Vertice *destino);
 		void eliminarVertice(Vertice *vert);
 		void crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
-		Grafo crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
+		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
+		void iAristas(ArrM);
 		void anular();
 		
 };
 
+struct ArrM{
+	char matriz[MAX][MAX];
+	int nl;
+};
 
+struct GrMat{
+	Grafo g;
+	ArrM m;
+};
 
 #endif

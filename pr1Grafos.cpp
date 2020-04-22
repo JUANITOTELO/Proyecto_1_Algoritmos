@@ -165,6 +165,7 @@ void Grafo::eliminarVertice(Vertice *vert){
 	}
 }
 
+
 //Función para crear una matriz y listata de adyacencia aleatoria
 void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 	char matrizAdy[MAX][MAX];
@@ -218,11 +219,15 @@ void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 
 
 //Función para crear una matriz y listata de adyacencia aleatoria que solo apunta a un nodo y ese nodo no apunta a nada
-Grafo Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
+GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
+	ArrM matrizValores;
+	matrizValores.nl = nl;
+	
 	char matrizAdy[MAX][MAX];
 	/*En esta parte se crea la matriz de dimencinoes nlxnl*/
 	map<char,int> mymap; // Aqui Estan los valores de las aristas 
 	matrizAdy[0][0] = ' ';
+	matrizValores.matriz[0][0] = ' ';
 	/*Aqui todas la letras de los vertices las pasamos a una lista*/
 	list<char> vertices;
 	for(int i = 0; i<nl; i++){
@@ -238,6 +243,9 @@ Grafo Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 		myGrafo.insertVertice(m);
 		matrizAdy[co][0] = m;
 		matrizAdy[0][co] = m;
+		
+		matrizValores.matriz[co][0] = m;
+		matrizValores.matriz[0][co] = m;
 		co++;
 	}
 	/*Empezamos a agregar valores aleatorios a la matriz*/
@@ -250,8 +258,10 @@ Grafo Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 			if(p != 0 && (matrizAdy[i][0] != matrizAdy[0][j]) && (matrizAdy[i][j] == 48 && matrizAdy[i][j] == 48)){
 				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
 				matrizAdy[j][i] = 49;// ~ 1 = 49 ascii
+				matrizValores.matriz[j][i] = num;
 			}else{
 				matrizAdy[j][i] = 48;// ~ 0 = 48 ascii
+				matrizValores.matriz[j][i] = 48;
 			}
 		}
 	}
@@ -263,9 +273,20 @@ Grafo Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 		cout<<endl;
 	}
 	
-	
 	cout<<"Lista de Adyasencia de Grafo simple: \n";
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
-	return myGrafo;
+	return GrMat{myGrafo, matrizValores};
+}
+
+
+//~ Función para imprimir valores de las aristas
+void Grafo::iAristas(ArrM ma){
+	cout<<"Matriz con valores de las aristas del Grafo simple: \n";
+	for(int i = 0; i<=ma.nl; i++){
+		for(int j= 0; j<=ma.nl; j++){
+			cout<<" "<<ma.matriz[j][i];
+		}
+		cout<<endl;
+	}
 }
