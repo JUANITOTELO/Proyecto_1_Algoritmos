@@ -4,9 +4,10 @@ int main(){
 	Grafo myGrafo;
 	GrMat GyM;
 	int nl = 25;
-	//myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
-	GyM = myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);
+	GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
 	cout<<endl;
+	//~ GyM = myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);
+	//~ cout<<endl;
 	myGrafo = GyM.g;
 	myGrafo.iAristas(GyM.m);
 	cout<<endl;

@@ -167,10 +167,15 @@ void Grafo::eliminarVertice(Vertice *vert){
 
 
 //Función para crear una matriz y listata de adyacencia aleatoria
-void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
+GrMat Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
+	ArrM matrizValores;
+	matrizValores.nl = nl;
+	
 	char matrizAdy[MAX][MAX];
 	map<char,int> mymap;
 	matrizAdy[0][0] = ' ';
+	matrizValores.matriz[0][0] = ' ';
+	
 	list<char> vertices;
 	for(int i = 0; i<nl; i++){
 		vertices.push_back(65+i);
@@ -183,6 +188,9 @@ void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 		myGrafo.insertVertice(m);
 		matrizAdy[co][0] = m;
 		matrizAdy[0][co] = m;
+		
+		matrizValores.matriz[co][0] = m;
+		matrizValores.matriz[0][co] = m;
 		co++;
 	}
 	
@@ -190,15 +198,19 @@ void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 	for(int i = 1; i<=nl; i++){
 		for(int j= 1; j<=nl; j++){
 			int num = 48+rand()%(58-48);
-			mymap.insert ( std::pair<char,int>(num,num-48) );
+			int numR = num-48;
+			mymap.insert ( std::pair<char,int>(num,numR) );
 			int p = mymap.at(num);
-			if(p != 0){
+			if(p != 0 && (matrizAdy[i][0] != matrizAdy[0][j])){
 				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
-			}
-			if(p==0){
-				matrizAdy[j][i] = 48;// ~ 0 = 48 ascii
-			}else{
 				matrizAdy[j][i] = 49;// ~ 1 = 49 ascii
+				matrizValores.matriz[j][i] = num;
+				matrizValores.matrizNumE[j-1][i-1] = numR;
+			}else{
+				matrizAdy[j][i] = 48;// ~ 0 = 48 ascii
+				matrizValores.matriz[j][i] = 48;
+				numR = 0;
+				matrizValores.matrizNumE[j-1][i-1] = numR;
 			}
 		}
 	}
@@ -212,9 +224,8 @@ void Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 	cout<<"Lista de Adyasencia: \n";
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
-	cout<<"Grafo eliminado."<<endl;
-	myGrafo.anular();
-	myGrafo.listAdya();
+
+	return GrMat{myGrafo, matrizValores};
 }
 
 
