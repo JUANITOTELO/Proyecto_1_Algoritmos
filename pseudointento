@@ -1,0 +1,31 @@
+Se recibe #vertices, #aristas, vértice de inicio, vértice final
+
+v() -> lo que "vale c/vértice en la tabla"
+
+1. Se inicializa el vértice inicial en True y v() = "-"
+Se inicializan los demás vértices en False y v() = Infinito
+
+VÉRTICE = vertice inicial
+
+2. Vértices adyacentes al inicial
+	c/v() de los adyacentes se cambia por el peso de la arista 
+	se comparan v() y se escoge el menor
+		se cambia ese vértice a True y v() = "-"
+		VÉRTICE = ese vértice
+
+3. Mientras todos los vertices menos uno no sean True
+	por cada vértice adyacente a VÉRTICE y que v() != "-"
+		v1 = v(VÉRTICE) + peso de la arista
+		si v1 < v() 
+			v() = v1
+	v(VÉRTICE) = "-"
+	//Imprimir tabla (v())//
+	se comparan v() y se escoge el menor
+		se cambia ese vértice a True 
+		VÉRTICE = ese vértice
+		
+
+Faltaria que retornara pues el camino. Mi idea era como que para c/vértice exista como otro atributo 
+Por ejemplo L() que guarde de donde "viene" el vértice
+Inicialmente todos iniciarían en 0
+Para que cuando se llegue al vértice final, como se se "retroceda" con esos L() y así encontrar el camino
