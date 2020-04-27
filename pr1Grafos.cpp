@@ -224,7 +224,7 @@ GrMat Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 	cout<<"Lista de Adyasencia: \n";
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
-
+	
 	return GrMat{myGrafo, matrizValores};
 }
 
@@ -297,7 +297,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 
 //~ Función para imprimir valores de las aristas
 void Grafo::iAristas(ArrM ma){
-	cout<<"Matriz con valores de las aristas del Grafo simple: \n"<<endl;
+	cout<<"Matriz con valores de las aristas del Grafo: \n"<<endl;
 	for(int i = 0; i<=ma.nl; i++){
 		for(int j= 0; j<=ma.nl; j++){
 			cout<<" "<<ma.matriz[j][i];
@@ -308,11 +308,53 @@ void Grafo::iAristas(ArrM ma){
 
 //~ Función para imprimir valores de las aristas de forma entera
 void Grafo::eAristas(ArrM ma){
-	cout<<"Matriz con valores en tipo entero de las aristas del Grafo simple: \n"<<endl;
+	cout<<"Matriz con valores en tipo entero de las aristas del Grafo: \n"<<endl;
 	for(int i = 0; i<=ma.nl-1; i++){
 		for(int j= 0; j<=ma.nl-1; j++){
 			cout<<" "<<ma.matrizNumE[j][i];
 		}
 		cout<<endl;
+	}
+}
+//~ Función para recorrer el grafo en anchura
+void Grafo::recAnchura(Vertice *origen){
+	int band;
+	int band2;
+	Vertice* actual;
+	queue<Vertice*> cola;
+	list<Vertice*>lista;
+	list<Vertice*>::iterator i;
+	list<Vertice*>::iterator c;
+	cola.push(origen);
+	cout<< "Se recorrera desde el vertice " <<origen->nombre<<endl;
+	while(!cola.empty()){
+		band = 0;
+		actual = cola.front();
+		cola.pop();
+		for(i = lista.begin(); i != lista.end(); i++){
+			if(*i == actual){
+				cout<<actual->nombre<<",";
+				band = 1;
+			}
+			if(band == 0){
+				cout<<actual->nombre<<",";
+				lista.push_back(actual);
+				Arista *aux;
+				aux = actual->ady;
+				while(aux != nullptr){
+					band2 = 0;
+					for(c = lista.begin();c != lista.end();c++){
+						if(aux->ady == *c){
+							band2 = 1;
+						}
+					}
+					if(band2 == 0){
+						cout<<actual->nombre<<",";
+						cola.push(aux->ady);
+					}
+					aux = aux->sig;
+				}
+			}
+		}
 	}
 }

@@ -1,10 +1,11 @@
 #ifndef __PR1GRAFOS_HPP
 #define __PR1GRAFOS_HPP
 
+#include <map>
+#include <queue>
 #include <list>
 #include <stdlib.h>
 #include <time.h>
-#include <map>
 #include <iostream>
 #include <string>
 #define MAX 100
@@ -36,6 +37,8 @@ class Grafo{
 	
 	public:
 		Vertice *getVertice(char nombre);
+		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
+		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
 		int size();
 		int getPeso(Vertice *origen,Vertice *destino);
 		bool vacio();
@@ -43,10 +46,9 @@ class Grafo{
 		void insertArista(Vertice *origen,Vertice *destino,int peso);
 		void insertVertice(char nombre);
 		void listAdya();
+		void recAnchura(Vertice *origen);
 		void eliminarArista(Vertice *origen, Vertice *destino);
 		void eliminarVertice(Vertice *vert);
-		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
-		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
 		void iAristas(ArrM);
 		void eAristas(ArrM);
 		void anular();
