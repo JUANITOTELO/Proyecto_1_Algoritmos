@@ -5,9 +5,11 @@
 #include <queue>
 #include <list>
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #include <iostream>
 #include <string>
+#include "colores.hpp"
 #define MAX 100
 
 using namespace std;

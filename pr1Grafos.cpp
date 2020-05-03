@@ -87,7 +87,7 @@ void Grafo::listAdya(){
 			cout<<verAux->nombre;
 			arAux = verAux->ady;
 			while(arAux != nullptr){// ~ Llega al ultimo elemento
-				cout<<"-"<<arAux->peso<<"->"<<arAux->ady->nombre;
+				cout<< GREEN <<"-"<< BOLDGREEN <<arAux->peso << RESET << GREEN <<"->"<< RESET <<arAux->ady->nombre;
 				arAux = arAux->sig;
 			}
 			verAux = verAux->sig;
@@ -101,7 +101,7 @@ void Grafo::anular(){
 	while(h != nullptr){
 		aux = h;
 		h = h->sig;
-		delete (aux);	
+		delete (aux);
 	}
 }
 
@@ -128,7 +128,7 @@ void Grafo::eliminarArista(Vertice *origen, Vertice *destino){
 			actual = actual->sig;
 		}
 		if(band == 0){
-			cout<<"Los vertices no estan conectados."<<endl;
+			cout<<RED<<"Los vertices no estan conectados."<<RESET<<endl;
 		}
 		
 	}
@@ -217,13 +217,17 @@ GrMat Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 	cout<<"Matriz de Adyasencia: \n";
 	for(int i = 0; i<=nl; i++){
 		for(int j= 0; j<=nl; j++){
-			cout<<" "<<matrizAdy[j][i];
+			if(matrizAdy[j][i] == '0'){
+				cout<<" "<< RED <<matrizAdy[j][i]<< RESET;
+			}else{
+				cout<<" "<<matrizAdy[j][i];
+			}
 		}
 		cout<<endl;
 	}
 	cout<<"Lista de Adyasencia: \n";
 	myGrafo.listAdya();
-	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
+	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	
 	return GrMat{myGrafo, matrizValores};
 }
@@ -290,7 +294,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 	
 	cout<<"Lista de Adyasencia de Grafo simple: \n"<<endl;
 	myGrafo.listAdya();
-	cout<<"Numero de Vertices: "<<myGrafo.size()<<endl;
+	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	return GrMat{myGrafo, matrizValores};
 }
 
