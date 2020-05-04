@@ -3,7 +3,7 @@
 int main(){
 	Grafo myGrafo;
 	GrMat GyM;
-	int nl = 10;
+	int nl = 16;
 	GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
 	cout<<endl;
 	//~ GyM = myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);

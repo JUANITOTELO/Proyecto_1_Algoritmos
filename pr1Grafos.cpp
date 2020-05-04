@@ -214,7 +214,7 @@ GrMat Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 			}
 		}
 	}
-	cout<<"Matriz de Adyasencia: \n";
+	cout<< BOLDWHITE <<"Matriz de Adyacencia: \n" << RESET;
 	for(int i = 0; i<=nl; i++){
 		for(int j= 0; j<=nl; j++){
 			if(matrizAdy[j][i] == '0'){
@@ -225,9 +225,9 @@ GrMat Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 		}
 		cout<<endl;
 	}
-	cout<<"Lista de Adyasencia: \n";
+	cout<< BOLDWHITE <<"Lista de Adyacencia: \n"<< RESET;
 	myGrafo.listAdya();
-	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+	cout<< BOLDWHITE <<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	
 	return GrMat{myGrafo, matrizValores};
 }
@@ -284,7 +284,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 			}
 		}
 	}
-	cout<<"Matriz de Adyasencia de Grafo simple: \n"<<endl;
+	cout<< BOLDWHITE <<"Matriz de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	for(int i = 0; i<=nl; i++){
 		for(int j= 0; j<=nl; j++){
 			cout<<" "<<matrizAdy[j][i];
@@ -292,7 +292,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 		cout<<endl;
 	}
 	
-	cout<<"Lista de Adyasencia de Grafo simple: \n"<<endl;
+	cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	return GrMat{myGrafo, matrizValores};
@@ -301,7 +301,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 
 //~ Función para imprimir valores de las aristas
 void Grafo::iAristas(ArrM ma){
-	cout<<"Matriz con valores de las aristas del Grafo: \n"<<endl;
+	cout<< BOLDWHITE <<"Matriz con valores de las aristas del Grafo: \n"<< RESET <<endl;
 	for(int i = 0; i<=ma.nl; i++){
 		for(int j= 0; j<=ma.nl; j++){
 			cout<<" "<<ma.matriz[j][i];
