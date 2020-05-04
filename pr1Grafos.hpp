@@ -14,53 +14,53 @@
 
 using namespace std;
 
-class Arista;
+class Arista;// define la clase arista
 
-struct GrMat;
-struct ArrM;
+struct GrMat;// contiene un grafo y una estructura ArrM
+struct ArrM;// contiene 2 matrices una de tipo caracter y la otra de tipo entero
 
-class Vertice{
+class Vertice{// crea apuntadores con el fin de acceder a el vertice
 	Vertice *sig;
 	Arista *ady;
 	char nombre;
-	friend class Grafo;
+	friend class Grafo;//hereda las los metodos de la clase Grafo
 };
 
-class Arista{
+class Arista{// crea apuntadores para acceder a los Vertices
 	Arista *sig;
 	Vertice *ady;
 	int peso;
-	friend class Grafo;
+	friend class Grafo;//hereda las los metodos de la clase Grafo
 };
 
-class Grafo{
+class Grafo{// crea la plantilla para la elaboracion de grafos.
 	private:
 		Vertice *h;
-	
+
 	public:
-		Vertice *getVertice(char nombre);
-		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);
-		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);
-		int size();
-		int getPeso(Vertice *origen,Vertice *destino);
-		bool vacio();
-		void init();
-		void insertArista(Vertice *origen,Vertice *destino,int peso);
-		void insertVertice(char nombre);
-		void listAdya();
-		void recAnchura(Vertice *origen);
-		void eliminarArista(Vertice *origen, Vertice *destino);
-		void eliminarVertice(Vertice *vert);
-		void iAristas(ArrM);
-		void eAristas(ArrM);
-		void anular();
-		
+		Vertice *getVertice(char nombre);//recibe el nombre del vertice que queremos obtener y retorna el vertice.
+		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia de forma aleatoria.
+		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia y el primer vertice no se conecta con nadie
+		int size();// retorna la cantidad de vertices
+		int getPeso(Vertice *origen,Vertice *destino);// retorna el peso de la arista.
+		bool vacio();// dice si el grafo esta vacio.
+		void init();// inicializa el grafo.(cambiar por el constructor :V)
+		void insertArista(Vertice *origen,Vertice *destino,int peso);// permite insertar una arista nueva.
+		void insertVertice(char nombre);// permite insertar un vertice nuevo.
+		void listAdya();//imprime la lista adyacente
+		void recAnchura(Vertice *origen);//intento de recorrer el grafo en anchura (mirar poque no sirve :V)
+		void eliminarArista(Vertice *origen, Vertice *destino);//permite eliminar la arista deseada.
+		void eliminarVertice(Vertice *vert);// permite eleminar el vertice deseado.
+		void iAristas(ArrM);// imprime la matriz como los caracteres.
+		void eAristas(ArrM);// imprime la matriz como los valores.
+		void anular();// destruye el grafo (cambiar por el destructor :V)
+
 };
 
 struct ArrM{
-	char matriz[MAX][MAX];
-	int matrizNumE[MAX][MAX];
-	int nl;
+	char matriz[MAX][MAX];//crea la  copia del grafo en una matriz de Adyacencia.
+	int matrizNumE[MAX][MAX];//representa el peso de las aristas en numeros
+	int nl;// numero de vertices.
 };
 
 struct GrMat{
