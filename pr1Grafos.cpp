@@ -287,11 +287,89 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 	cout<< BOLDWHITE <<"Matriz de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	for(int i = 0; i<=nl; i++){
 		for(int j= 0; j<=nl; j++){
-			cout<<" "<<matrizAdy[j][i];
+			if(matrizAdy[j][i] == '0'){
+				cout<<" "<< RED <<matrizAdy[j][i]<< RESET;
+			}else{
+				cout<<" "<<matrizAdy[j][i];
+			}
 		}
 		cout<<endl;
 	}
+	cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
+	myGrafo.listAdya();
+	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+	return GrMat{myGrafo, matrizValores};
+}
+
+//~ Función para crear un grafo unidireccional
+GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
+	ArrM matrizValores;
+	matrizValores.nl = nl;
 	
+	char matrizAdy[MAX][MAX];
+	/*En esta parte se crea la matriz de dimencinoes nlxnl*/
+	map<char,int> mymap; // Aqui Estan los valores de las aristas 
+	matrizAdy[0][0] = ' ';
+	matrizValores.matriz[0][0] = ' ';
+	/*Aqui todas la letras de los vertices las pasamos a una lista*/
+	list<char> vertices;
+	for(int i = 0; i<nl; i++){
+		vertices.push_back(65+i);
+	}
+	/*En esta parte se incializa el grafo y se le insertan los vertices que estan en la lista
+	 * tambien se agragan estos nombres a las columnas y filas de la matriz de adyacencia.*/
+	myGrafo.init();
+	char m;
+	int co = 1;
+	for (list<char>::iterator it=vertices.begin(); it!=vertices.end(); ++it){
+		m = *it;
+		myGrafo.insertVertice(m);
+		matrizAdy[co][0] = m;
+		matrizAdy[0][co] = m;
+		
+		matrizValores.matriz[co][0] = m;
+		matrizValores.matriz[0][co] = m;
+		co++;
+	}
+	/*Empezamos a agregar valores aleatorios a la matriz*/
+	srand(time(NULL));
+	for(int i = 1; i<=nl; i++){
+		for(int j= 1; j<=nl; j++){
+			int num = 48+rand()%(58-48);
+			int numR = num-48;
+			mymap.insert ( std::pair<char,int>(num,numR) );
+			int p = mymap.at(num);
+			if(p != 0 && (matrizAdy[i][0] != matrizAdy[0][j]) && (matrizAdy[i][j] == 48 && matrizAdy[i][j] == 48)){
+				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
+				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[j][0]),myGrafo.getVertice(matrizAdy[0][i]),p);
+				matrizAdy[j][i] = matrizAdy[i][j] = 49;// ~ 1 = 49 ascii
+				matrizValores.matriz[j][i] = matrizValores.matriz[i][j] = num;
+				matrizValores.matrizNumE[j-1][i-1] = matrizValores.matrizNumE[i-1][j-1] = numR;
+			}else{
+				matrizAdy[j][i] = matrizAdy[i][j] = 48;// ~ 0 = 48 ascii
+				matrizValores.matriz[j][i] = matrizValores.matriz[i][j] = 48;
+				numR = 0;
+				matrizValores.matrizNumE[j-1][i-1] = matrizValores.matrizNumE[i-1][j-1] = numR;
+			}
+		}
+	}
+	/*Se agregaran valores a la matriz y al grafo en la ubicación de AB = BA
+	int num = 48+rand()%(58-48);
+	int numR = num-48;
+	myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),num);
+	matrizAdy[1][2] = matrizAdy[2][1] = num;
+	*/
+	cout<< BOLDWHITE <<"Matriz de Adyacencia de Grafo simple: \n"<< RESET <<endl;
+	for(int i = 0; i<=nl; i++){
+		for(int j= 0; j<=nl; j++){
+			if(matrizAdy[j][i] == '0'){
+				cout<<" "<< RED <<matrizAdy[j][i]<< RESET;
+			}else{
+				cout<<" "<<matrizAdy[j][i];
+			}
+		}
+		cout<<endl;
+	}
 	cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	myGrafo.listAdya();
 	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
@@ -304,7 +382,11 @@ void Grafo::iAristas(ArrM ma){
 	cout<< BOLDWHITE <<"Matriz con valores de las aristas del Grafo: \n"<< RESET <<endl;
 	for(int i = 0; i<=ma.nl; i++){
 		for(int j= 0; j<=ma.nl; j++){
-			cout<<" "<<ma.matriz[j][i];
+			if(ma.matriz[j][i] == '0'){
+				cout<<" "<< RED<<ma.matriz[j][i]<< RESET;
+			}else{
+				cout<<" "<< ma.matriz[j][i];
+			}
 		}
 		cout<<endl;
 	}
@@ -315,7 +397,11 @@ void Grafo::eAristas(ArrM ma){
 	cout<<"Matriz con valores en tipo entero de las aristas del Grafo: \n"<<endl;
 	for(int i = 0; i<=ma.nl-1; i++){
 		for(int j= 0; j<=ma.nl-1; j++){
-			cout<<" "<<ma.matrizNumE[j][i];
+			if(ma.matrizNumE[j][i] == 0){
+				cout<<" "<< RED << ma.matrizNumE[j][i] << RESET;
+			}else{
+				cout<<" "<< ma.matrizNumE[j][i];
+			}
 		}
 		cout<<endl;
 	}

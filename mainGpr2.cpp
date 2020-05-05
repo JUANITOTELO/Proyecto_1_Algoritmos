@@ -3,15 +3,16 @@
 int main(){
 	Grafo myGrafo;
 	GrMat GyM;
-	int nl = 16;
-	GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
+	int nl = 26;
+	//~ GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
+	GyM = myGrafo.crearMLUnid(myGrafo, nl);
 	cout<<endl;
 	//~ GyM = myGrafo.crearMatrizYlistAdyAlSimple(myGrafo, nl);
 	//~ cout<<endl;
 	myGrafo = GyM.g;
-	//~ myGrafo.iAristas(GyM.m);
+	myGrafo.iAristas(GyM.m);
 	//~ cout<<endl;
-	//~ myGrafo.eAristas(GyM.m);
+	myGrafo.eAristas(GyM.m);
 	//~ myGrafo.recAnchura(myGrafo.getVertice('A'));
 	
 	cout<< RED <<"Eliminado grafo.. \n"<< RESET <<endl;

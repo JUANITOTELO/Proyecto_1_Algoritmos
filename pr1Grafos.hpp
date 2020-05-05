@@ -41,6 +41,7 @@ class Grafo{// crea la plantilla para la elaboracion de grafos.
 		Vertice *getVertice(char nombre);//recibe el nombre del vertice que queremos obtener y retorna el vertice.
 		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia de forma aleatoria.
 		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia y el primer vertice no se conecta con nadie
+		GrMat crearMLUnid(Grafo myGrafo, int nl);//crea un grafo con su matriz y lista de adyacencia
 		int size();// retorna la cantidad de vertices
 		int getPeso(Vertice *origen,Vertice *destino);// retorna el peso de la arista.
 		bool vacio();// dice si el grafo esta vacio.
