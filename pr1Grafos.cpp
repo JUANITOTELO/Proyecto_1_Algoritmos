@@ -305,8 +305,8 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
 	ArrM matrizValores;
 	matrizValores.nl = nl;
-	
 	char matrizAdy[MAX][MAX];
+	
 	/*En esta parte se crea la matriz de dimencinoes nlxnl*/
 	map<char,int> mymap; // Aqui Estan los valores de las aristas 
 	matrizAdy[0][0] = ' ';
@@ -340,11 +340,19 @@ GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
 			mymap.insert ( std::pair<char,int>(num,numR) );
 			int p = mymap.at(num);
 			if(p != 0 && (matrizAdy[i][0] != matrizAdy[0][j]) && (matrizAdy[i][j] == 48 && matrizAdy[i][j] == 48)){
-				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
-				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[j][0]),myGrafo.getVertice(matrizAdy[0][i]),p);
-				matrizAdy[j][i] = matrizAdy[i][j] = 49;// ~ 1 = 49 ascii
-				matrizValores.matriz[j][i] = matrizValores.matriz[i][j] = num;
-				matrizValores.matrizNumE[j-1][i-1] = matrizValores.matrizNumE[i-1][j-1] = numR;
+				if(i == nl && j == 1){
+					//~ myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),0});
+					//~ myGrafo.insertArista(myGrafo.getVertice(matrizAdy[j][0]),myGrafo.getVertice(matrizAdy[0][i]),0);
+					matrizAdy[j][i] = matrizAdy[i][j] = 48;// ~ 1 = 49 ascii
+					matrizValores.matriz[j][i] = matrizValores.matriz[i][j] = '0';
+					matrizValores.matrizNumE[j-1][i-1] = matrizValores.matrizNumE[i-1][j-1] = 0;
+				}else{
+					myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
+					myGrafo.insertArista(myGrafo.getVertice(matrizAdy[j][0]),myGrafo.getVertice(matrizAdy[0][i]),p);
+					matrizAdy[j][i] = matrizAdy[i][j] = 49;// ~ 1 = 49 ascii
+					matrizValores.matriz[j][i] = matrizValores.matriz[i][j] = num;
+					matrizValores.matrizNumE[j-1][i-1] = matrizValores.matrizNumE[i-1][j-1] = numR;
+				}
 			}else{
 				matrizAdy[j][i] = matrizAdy[i][j] = 48;// ~ 0 = 48 ascii
 				matrizValores.matriz[j][i] = matrizValores.matriz[i][j] = 48;
@@ -394,7 +402,7 @@ void Grafo::iAristas(ArrM ma){
 
 //~ Función para imprimir valores de las aristas de forma entera
 void Grafo::eAristas(ArrM ma){
-	cout<<"Matriz con valores en tipo entero de las aristas del Grafo: \n"<<endl;
+	cout<< BOLDWHITE <<"Matriz con valores en tipo entero de las aristas del Grafo: \n"<<RESET<<endl;
 	for(int i = 0; i<=ma.nl-1; i++){
 		for(int j= 0; j<=ma.nl-1; j++){
 			if(ma.matrizNumE[j][i] == 0){
