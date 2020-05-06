@@ -297,7 +297,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 	}
 	cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	myGrafo.listAdya();
-	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+	cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	return GrMat{myGrafo, matrizValores};
 }
 
@@ -380,7 +380,7 @@ GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
 	}
 	cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	myGrafo.listAdya();
-	cout<<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+	cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	return GrMat{myGrafo, matrizValores};
 }
 
