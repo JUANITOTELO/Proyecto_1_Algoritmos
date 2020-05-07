@@ -3,7 +3,7 @@
 int main(){
 	Grafo myGrafo;
 	GrMat GyM;
-	int nl = 6;
+	int nl = 7;
 	//~ GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
 	GyM = myGrafo.crearMLUnid(myGrafo, nl);
 	cout<<endl;
@@ -13,7 +13,7 @@ int main(){
 	myGrafo.iAristas(GyM.m);
 	//~ cout<<endl;
 	myGrafo.eAristas(GyM.m);
-	//~ myGrafo.recAnchura(myGrafo.getVertice('A'));
+	myGrafo.reCorsF('A');
 	cout<<endl;
 	cout<< BOLDRED <<"Eliminado grafo.. \n"<< RESET <<endl;
 	

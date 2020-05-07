@@ -269,7 +269,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 		for(int j= 1; j<=nl; j++){
 			int num = 48+rand()%(58-48);
 			int numR = num-48;
-			mymap.insert ( std::pair<char,int>(num,numR) );
+			mymap.insert ( pair<char,int>(num,numR) );
 			int p = mymap.at(num);
 			if(p != 0 && (matrizAdy[i][0] != matrizAdy[0][j]) && (matrizAdy[i][j] == 48 && matrizAdy[i][j] == 48)){
 				myGrafo.insertArista(myGrafo.getVertice(matrizAdy[i][0]),myGrafo.getVertice(matrizAdy[0][j]),p);
@@ -414,45 +414,36 @@ void Grafo::eAristas(ArrM ma){
 		cout<<endl;
 	}
 }
-//~ Función para recorrer el grafo en anchura
-void Grafo::recAnchura(Vertice *origen){
-	int band;
-	int band2;
-	Vertice* actual;
-	queue<Vertice*> cola;
-	list<Vertice*>lista;
-	list<Vertice*>::iterator i;
-	list<Vertice*>::iterator c;
-	cola.push(origen);
-	cout<< "Se recorrera desde el vertice " <<origen->nombre<<endl;
-	while(!cola.empty()){
-		band = 0;
-		actual = cola.front();
-		cola.pop();
-		for(i = lista.begin(); i != lista.end(); i++){
-			if(*i == actual){
-				cout<<actual->nombre<<",";
-				band = 1;
-			}
-			if(band == 0){
-				cout<<actual->nombre<<",";
-				lista.push_back(actual);
-				Arista *aux;
-				aux = actual->ady;
-				while(aux != nullptr){
-					band2 = 0;
-					for(c = lista.begin();c != lista.end();c++){
-						if(aux->ady == *c){
-							band2 = 1;
-						}
-					}
-					if(band2 == 0){
-						cout<<actual->nombre<<",";
-						cola.push(aux->ady);
-					}
-					aux = aux->sig;
-				}
-			}
+//~ Función para recorrer el grafo 
+MpV Grafo::recordFMmenor(Vertice *origen){
+	Vertice *veAux;
+	Arista *arAux;
+	MpV aux;
+	veAux = origen;
+	arAux = veAux->ady;
+	map<char,int> myminmap;
+	char myminlist[MAX];
+	int k = 0;
+	int min = arAux->peso;
+	char n = origen->nombre;
+	char na;
+	while(arAux != nullptr){
+		if(arAux->peso <= min){
+			na = veAux->sig->nombre;
+			min = arAux->peso;
+			aux.keys[k] = na;
+			myminmap.insert(pair<char,int>(veAux->sig->nombre,min));
+			k += 1;
 		}
+		cout<<BOLDGREEN<<veAux->sig->nombre<<arAux->peso<<RESET<<" ";
+		veAux = veAux->sig;
+		arAux = arAux->sig;
 	}
+	aux.Proc = n;
+	aux.valores = myminmap;
+	return aux;
+}
+
+MpV Grafo::reCorsF(char nombre){
+	return recordFMmenor(getVertice(nombre));
 }

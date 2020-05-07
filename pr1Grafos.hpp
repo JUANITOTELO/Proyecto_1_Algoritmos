@@ -18,6 +18,7 @@ class Arista;// define la clase arista
 
 struct GrMat;// contiene un grafo y una estructura ArrM
 struct ArrM;// contiene 2 matrices una de tipo caracter y la otra de tipo entero
+struct MpV;
 
 class Vertice{// crea apuntadores con el fin de acceder a el vertice
 	Vertice *sig;
@@ -36,12 +37,14 @@ class Arista{// crea apuntadores para acceder a los Vertices
 class Grafo{// crea la plantilla para la elaboracion de grafos.
 	private:
 		Vertice *h;
-
+		MpV recordFMmenor(Vertice *origen);//intento de recorrer el grafo en anchura (mirar poque no sirve :V)
+		
 	public:
 		Vertice *getVertice(char nombre);//recibe el nombre del vertice que queremos obtener y retorna el vertice.
 		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia de forma aleatoria.
 		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia y el primer vertice no se conecta con nadie
 		GrMat crearMLUnid(Grafo myGrafo, int nl);//crea un grafo con su matriz y lista de adyacencia
+		MpV reCorsF(char nombre);//guarda los valores minimos de sus adyacentes y retona de donde viene y el mapa con los respectivos valores
 		int size();// retorna la cantidad de vertices
 		int getPeso(Vertice *origen,Vertice *destino);// retorna el peso de la arista.
 		bool vacio();// dice si el grafo esta vacio.
@@ -49,7 +52,6 @@ class Grafo{// crea la plantilla para la elaboracion de grafos.
 		void insertArista(Vertice *origen,Vertice *destino,int peso);// permite insertar una arista nueva.
 		void insertVertice(char nombre);// permite insertar un vertice nuevo.
 		void listAdya();//imprime la lista adyacente
-		void recAnchura(Vertice *origen);//intento de recorrer el grafo en anchura (mirar poque no sirve :V)
 		void eliminarArista(Vertice *origen, Vertice *destino);//permite eliminar la arista deseada.
 		void eliminarVertice(Vertice *vert);// permite eleminar el vertice deseado.
 		void iAristas(ArrM);// imprime la matriz como los caracteres.
@@ -67,6 +69,12 @@ struct ArrM{
 struct GrMat{
 	Grafo g;
 	ArrM m;
+};
+
+struct MpV{
+	char Proc;
+	map<char,int> valores;
+	char keys[MAX];
 };
 
 #endif
