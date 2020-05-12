@@ -41,6 +41,7 @@ void Grafo::insertVertice(char nombre){
 	nuevo->nombre = nombre;
 	nuevo->sig = nullptr;
 	nuevo->ady = nullptr;
+	nuevo->sumaV = 0;
 	
 	if(vacio()){
 		h = nuevo;
@@ -141,6 +142,63 @@ MpV Grafo::recordFMmenor(Vertice *origen){
 	aux.valores = myminmap2;
 	cout<<endl;
 	return aux;
+}
+
+MpV Grafo::recordFP(Vertice *origen){
+	Vertice *veAux;
+	Arista *arAux;
+	MpV aux;
+	veAux = origen;
+	arAux = veAux->ady;
+	map<char,int> myminmap;
+	int k = 0;
+	int min = arAux->peso;
+	char n = origen->nombre;
+	char na;
+	if(origen == nullptr){
+		cout<<"esta vacio";
+	}else{
+		while(arAux != nullptr){
+		
+			na = arAux->ady->nombre;
+			min = arAux->peso;
+			myminmap.insert(pair<char,int>(na,min));
+			//~ cout<<BOLDCYAN<<n<<RESET<<"-"<<BOLDYELLOW<<arAux->peso<<RESET<<">"<<BOLDGREEN<<na<<RESET<<" ";
+			k += 1;
+			arAux = arAux->sig;
+		}
+	}
+	
+	aux.Proc = n;
+	aux.valores = myminmap;
+	cout<<endl;
+	return aux;
+
+}
+
+char Grafo::dijkstra(Vertice *origen, Vertice *destino){
+	MpV filas[MAX];
+	map<char,int> mymap;
+	map<char, int>::iterator it;
+	list<char> visitados;
+	list<char> noVisitados;
+	int nl = size();
+	
+	for(char n = 65; n < 65+nl; n++){
+		filas[n-65] = reCorsF(n);
+		mymap = filas[n-65].valores;
+		cout<<BOLDCYAN<<filas[n-65].Proc<<RESET<<endl;
+		noVisitados.push_back(filas[n-65].Proc);
+		for (it=mymap.begin(); it!=mymap.end(); ++it)
+			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+	}
+
+	noVisitados.pop_front();
+	cout << "noVisitados contains:";
+	for (std::list<char>::iterator it=noVisitados.begin(); it!=noVisitados.end(); ++it)
+    std::cout << ' ' << *it;
+	cout<<endl;
+	return 'A';
 }
 
 void Grafo::eliminarArista(Vertice *origen, Vertice *destino){
@@ -454,10 +512,20 @@ void Grafo::eAristas(ArrM ma){
 	}
 	cout<<endl;
 }
+
 //~ Función para recorrer la fila con el nombre que recibe
-MpV Grafo::reCorsF(char nombre){
+MpV Grafo::reCorsFM(char nombre){
 	return recordFMmenor(getVertice(nombre));
 }
+
+char Grafo::Dijkstra(char origen, char fin){
+	return dijkstra(getVertice(origen), getVertice(fin));
+}
+
+MpV Grafo::reCorsF(char nombre){
+	return recordFP(getVertice(nombre));
+}
+
 
 void Grafo::anular(){
 	cout<< BOLDRED <<"Eliminado grafo.. \n"<< RESET <<endl;
@@ -468,3 +536,4 @@ void Grafo::anular(){
 		delete (aux);
 	}
 }
+

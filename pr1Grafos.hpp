@@ -11,6 +11,7 @@
 #include <string>
 #include "colores.hpp"
 #define MAX 100
+#define INFINITY 99999999999
 
 using namespace std;
 
@@ -18,12 +19,13 @@ class Arista;// define la clase arista
 
 struct GrMat;// contiene un grafo y una estructura ArrM
 struct ArrM;// contiene 2 matrices una de tipo caracter y la otra de tipo entero
-struct MpV;
+struct MpV;// contiene el vertce de procedencia y valores de ady
 
 class Vertice{// crea apuntadores con el fin de acceder a el vertice
 	Vertice *sig;
 	Arista *ady;
 	char nombre;
+	int sumaV;
 	friend class Grafo;//hereda las los metodos de la clase Grafo
 };
 
@@ -37,16 +39,20 @@ class Arista{// crea apuntadores para acceder a los Vertices
 class Grafo{// crea la plantilla para la elaboracion de grafos.
 	private:
 		Vertice *h;
-		MpV recordFMmenor(Vertice *origen);//intento de recorrer el grafo en anchura (mirar poque no sirve :V)
+		MpV recordFMmenor(Vertice *origen);//recorre la fila y retorna los menores
+		MpV recordFP(Vertice *origen);//recorre la fila y retorna todos los valores
+		char dijkstra(Vertice *origen, Vertice *destino);// Camino mas corto, retorna una lista con las llaves del camino
 		
 	public:
 		Vertice *getVertice(char nombre);//recibe el nombre del vertice que queremos obtener y retorna el vertice.
 		GrMat crearMatrizYlistAdyAl(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia de forma aleatoria.
 		GrMat crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl);//crea la matriz lista de adyacencia y el primer vertice no se conecta con nadie
 		GrMat crearMLUnid(Grafo myGrafo, int nl);//crea un grafo con su matriz y lista de adyacencia
-		MpV reCorsF(char nombre);//guarda los valores minimos de sus adyacentes y retona de donde viene y el mapa con los respectivos valores
+		MpV reCorsFM(char nombre);//guarda los valores minimos de sus adyacentes y retona de donde viene y el mapa con los respectivos valores
+		MpV reCorsF(char nombre);//recorre las filas y las guarda en un MpV
 		int size();// retorna la cantidad de vertices
 		int getPeso(Vertice *origen,Vertice *destino);// retorna el peso de la arista.
+		char Dijkstra(char origen, char fin);
 		bool vacio();// dice si el grafo esta vacio.
 		void init();// inicializa el grafo.(cambiar por el constructor :V)
 		void insertArista(Vertice *origen,Vertice *destino,int peso);// permite insertar una arista nueva.

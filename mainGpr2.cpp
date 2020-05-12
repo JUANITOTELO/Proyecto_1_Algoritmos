@@ -14,13 +14,14 @@ int main(){
 	//~ cout<<endl;
 	myGrafo = GyM.g;
 	myGrafo.iAristas(GyM.m);
-	for(char n = 65; n < 65+nl; n++){
-		filas[n-65] = myGrafo.reCorsF(n);
-		mymap = filas[n-65].valores;
-		cout<<BOLDCYAN<<n<<RESET<<endl;
-		for (it=mymap.begin(); it!=mymap.end(); ++it)
-			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
-	}
+	myGrafo.Dijkstra('A', 'E');
+	//~ for(char n = 65; n < 65+nl; n++){
+		//~ filas[n-65] = myGrafo.reCorsF(n);
+		//~ mymap = filas[n-65].valores;
+		//~ cout<<BOLDCYAN<<filas[n-65].Proc<<RESET<<endl;
+		//~ for (it=mymap.begin(); it!=mymap.end(); ++it)
+			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+	//~ }
 
 	//~ myGrafo.eAristas(GyM.m);
 	myGrafo.anular();
