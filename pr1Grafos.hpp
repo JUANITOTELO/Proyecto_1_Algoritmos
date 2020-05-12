@@ -57,6 +57,7 @@ class Grafo{// crea la plantilla para la elaboracion de grafos.
 		void iAristas(ArrM);// imprime la matriz como los caracteres.
 		void eAristas(ArrM);// imprime la matriz como los valores.
 		void anular();// destruye el grafo (cambiar por el destructor :V)
+		//~ ~Grafo();
 
 };
 
@@ -74,7 +75,7 @@ struct GrMat{
 struct MpV{
 	char Proc;
 	map<char,int> valores;
-	char keys[MAX];
+	list<char> keys;
 };
 
 #endif

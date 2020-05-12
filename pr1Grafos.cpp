@@ -32,6 +32,7 @@ Vertice* Grafo::getVertice(char nombre){
 		}
 		aux = aux->sig;
 	}
+	cout<<BOLDMAGENTA<<aux->nombre<<RESET<<" ";
 	return nullptr;
 }
 
@@ -48,7 +49,6 @@ void Grafo::insertVertice(char nombre){
 		Vertice *aux;
 		aux = h;
 		while(aux->sig != nullptr){
-			
 			aux = aux->sig;
 		}
 		aux->sig = nuevo;
@@ -96,13 +96,51 @@ void Grafo::listAdya(){
 	}
 }
 
-void Grafo::anular(){
-	Vertice *aux;
-	while(h != nullptr){
-		aux = h;
-		h = h->sig;
-		delete (aux);
+//~ Función para recorrer el grafo 
+MpV Grafo::recordFMmenor(Vertice *origen){
+	Vertice *veAux;
+	Arista *arAux;
+	MpV aux;
+	veAux = origen;
+	arAux = veAux->ady;
+	map<char,int> myminmap;
+	map<char,int> myminmap2;
+	map<char,int>::iterator it;
+	int k = 0;
+	int min = arAux->peso;
+	char n = origen->nombre;
+	char na;
+	if(origen == nullptr){
+		cout<<"esta vacio";
 	}
+	while(arAux != nullptr){
+		if(arAux->peso <= min){
+			na = arAux->ady->nombre;
+			min = arAux->peso;
+			myminmap.insert(pair<char,int>(na,min));
+			//~ cout<<BOLDCYAN<<n<<RESET<<"-"<<BOLDYELLOW<<arAux->peso<<RESET<<">"<<BOLDGREEN<<na<<RESET<<" ";
+			k += 1;
+		}
+			arAux = arAux->sig;
+	}
+	
+	cout<<endl;
+	int auxAnt = myminmap.begin()->second;
+	for (it = myminmap.begin(); it != myminmap.end(); ++it){
+		if(auxAnt > it->second){
+			auxAnt = it->second;
+		}
+	}
+	for (it = myminmap.begin(); it != myminmap.end(); ++it){
+		if(auxAnt == it->second){
+			myminmap2.insert(pair<char,int>(it->first, it->second));
+		}
+	}
+
+	aux.Proc = n;
+	aux.valores = myminmap2;
+	cout<<endl;
+	return aux;
 }
 
 void Grafo::eliminarArista(Vertice *origen, Vertice *destino){
@@ -307,7 +345,7 @@ GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
 	matrizValores.nl = nl;
 	char matrizAdy[MAX][MAX];
 	
-	/*En esta parte se crea la matriz de dimencinoes nlxnl*/
+	/*En esta parte se crea la matriz de dimenciones nlxnl*/
 	map<char,int> mymap; // Aqui Estan los valores de las aristas 
 	matrizAdy[0][0] = ' ';
 	matrizValores.matriz[0][0] = ' ';
@@ -398,6 +436,7 @@ void Grafo::iAristas(ArrM ma){
 		}
 		cout<<endl;
 	}
+	cout<<endl;
 }
 
 //~ Función para imprimir valores de las aristas de forma entera
@@ -413,37 +452,19 @@ void Grafo::eAristas(ArrM ma){
 		}
 		cout<<endl;
 	}
+	cout<<endl;
 }
-//~ Función para recorrer el grafo 
-MpV Grafo::recordFMmenor(Vertice *origen){
-	Vertice *veAux;
-	Arista *arAux;
-	MpV aux;
-	veAux = origen;
-	arAux = veAux->ady;
-	map<char,int> myminmap;
-	char myminlist[MAX];
-	int k = 0;
-	int min = arAux->peso;
-	char n = origen->nombre;
-	char na;
-	while(arAux != nullptr){
-		if(arAux->peso <= min){
-			na = veAux->sig->nombre;
-			min = arAux->peso;
-			aux.keys[k] = na;
-			myminmap.insert(pair<char,int>(veAux->sig->nombre,min));
-			k += 1;
-		}
-		cout<<BOLDGREEN<<veAux->sig->nombre<<arAux->peso<<RESET<<" ";
-		veAux = veAux->sig;
-		arAux = arAux->sig;
-	}
-	aux.Proc = n;
-	aux.valores = myminmap;
-	return aux;
-}
-
+//~ Función para recorrer la fila con el nombre que recibe
 MpV Grafo::reCorsF(char nombre){
 	return recordFMmenor(getVertice(nombre));
+}
+
+void Grafo::anular(){
+	cout<< BOLDRED <<"Eliminado grafo.. \n"<< RESET <<endl;
+	Vertice *aux;
+	while(h != nullptr){
+		aux = h;
+		h = h->sig;
+		delete (aux);
+	}
 }

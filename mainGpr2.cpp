@@ -3,7 +3,10 @@
 int main(){
 	Grafo myGrafo;
 	GrMat GyM;
-	int nl = 7;
+	MpV filas[MAX];
+	map<char,int> mymap;
+	map<char, int>::iterator it;
+	int nl = 6;
 	//~ GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
 	GyM = myGrafo.crearMLUnid(myGrafo, nl);
 	cout<<endl;
@@ -11,12 +14,15 @@ int main(){
 	//~ cout<<endl;
 	myGrafo = GyM.g;
 	myGrafo.iAristas(GyM.m);
-	//~ cout<<endl;
-	myGrafo.eAristas(GyM.m);
-	myGrafo.reCorsF('A');
-	cout<<endl;
-	cout<< BOLDRED <<"Eliminado grafo.. \n"<< RESET <<endl;
-	
+	for(char n = 65; n < 65+nl; n++){
+		filas[n-65] = myGrafo.reCorsF(n);
+		mymap = filas[n-65].valores;
+		cout<<BOLDCYAN<<n<<RESET<<endl;
+		for (it=mymap.begin(); it!=mymap.end(); ++it)
+			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+	}
+
+	//~ myGrafo.eAristas(GyM.m);
 	myGrafo.anular();
 	return 0;
 }
