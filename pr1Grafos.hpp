@@ -11,7 +11,7 @@
 #include <string>
 #include "colores.hpp"
 #define MAX 100
-#define INFINITY 99999999999
+#define INFINITY 99999999
 
 using namespace std;
 
@@ -24,8 +24,8 @@ struct MpV;// contiene el vertce de procedencia y valores de ady
 class Vertice{// crea apuntadores con el fin de acceder a el vertice
 	Vertice *sig;
 	Arista *ady;
-	char nombre;
 	int sumaV;
+	char nombre;
 	friend class Grafo;//hereda las los metodos de la clase Grafo
 };
 
@@ -81,6 +81,7 @@ struct GrMat{
 struct MpV{
 	char Proc;
 	map<char,int> valores;
+	int sPesos;
 	list<char> keys;
 };
 

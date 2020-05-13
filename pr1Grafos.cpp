@@ -41,7 +41,7 @@ void Grafo::insertVertice(char nombre){
 	nuevo->nombre = nombre;
 	nuevo->sig = nullptr;
 	nuevo->ady = nullptr;
-	nuevo->sumaV = 0;
+	nuevo->sumaV = INFINITY;
 	
 	if(vacio()){
 		h = nuevo;
@@ -163,6 +163,7 @@ MpV Grafo::recordFP(Vertice *origen){
 			na = arAux->ady->nombre;
 			min = arAux->peso;
 			myminmap.insert(pair<char,int>(na,min));
+			aux.sPesos = arAux->ady->sumaV;
 			//~ cout<<BOLDCYAN<<n<<RESET<<"-"<<BOLDYELLOW<<arAux->peso<<RESET<<">"<<BOLDGREEN<<na<<RESET<<" ";
 			k += 1;
 			arAux = arAux->sig;
@@ -182,22 +183,64 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	map<char, int>::iterator it;
 	list<char> visitados;
 	list<char> noVisitados;
+	int auxSPesos[MAX];
+	int suma = 0;
 	int nl = size();
 	
 	for(char n = 65; n < 65+nl; n++){
+		if(n == 65){
+			filas[n-65] = reCorsF(n);
+			mymap = filas[n-65].valores;
+			it = mymap.begin();
+			filas[n-65].sPesos = 0;
+			cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
+			visitados.push_back(filas[n-65].Proc);
+			for (it=mymap.begin(); it!=mymap.end(); ++it)
+				cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+			auxSPesos[n-65] = filas[n-65].sPesos;
+		}else{
 		filas[n-65] = reCorsF(n);
 		mymap = filas[n-65].valores;
-		cout<<BOLDCYAN<<filas[n-65].Proc<<RESET<<endl;
+		cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
 		noVisitados.push_back(filas[n-65].Proc);
 		for (it=mymap.begin(); it!=mymap.end(); ++it)
 			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+		}
+		auxSPesos[n-65] = filas[n-65].sPesos;
 	}
 
-	noVisitados.pop_front();
-	cout << "noVisitados contains:";
+	//~ noVisitados.pop_front();
+	//~ filas[0].sPesos = 0;
+	//~ cout << "noVisitados contains:";
 	for (std::list<char>::iterator it=noVisitados.begin(); it!=noVisitados.end(); ++it)
-    std::cout << ' ' << *it;
+		std::cout << ' ' << *it;
+	
 	cout<<endl;
+	
+	for(int n = 0; n < nl; n++){
+		cout<<filas[n].Proc<<endl;
+			for (it=filas[n].valores.begin(); it!=filas[n].valores.end(); ++it){
+				suma = filas[n].sPesos + it->second;
+				if(suma < auxSPesos[it->first-65]){
+					auxSPesos[it->first-65] = suma;
+					filas[it->first-65].sPesos = suma;
+					//~ cout<<suma<<endl;
+					
+				}
+				cout<<BOLDCYAN<<filas[it->first-65].Proc<<" " << filas[it->first-65].sPesos <<RESET<<endl;
+			}
+	}
+	
+	
+	//~ cout<<endl;
+	//~ it = filas[1].valores.begin();
+	//~ for(int i = 66; i < 65+nl; i++){
+		//~ filas[i].sPesos = it->second;
+		//~ cout<< it->first << filas[i].sPesos <<" ";
+		//~ it++;
+	//~ } 
+	cout<<endl;
+	
 	return 'A';
 }
 
