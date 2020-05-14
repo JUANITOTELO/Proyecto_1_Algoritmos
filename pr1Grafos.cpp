@@ -1,5 +1,13 @@
 #include "pr1Grafos.hpp"
 
+saludos::saludos(){
+	cout<<"Hola!!"<<endl;
+}
+
+saludos::~saludos(){
+	cout<<"Bye!!"<<endl;
+}
+
 void Grafo::init(){
 	h = nullptr;
 }
@@ -203,6 +211,7 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 		mymap = filas[n-65].valores;
 		cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
 		noVisitados.push_back(filas[n-65].Proc);
+		
 		for (it=mymap.begin(); it!=mymap.end(); ++it)
 			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 		}
@@ -218,20 +227,29 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	cout<<endl;
 	
 	for(int n = 0; n < nl; n++){
-		cout<<filas[n].Proc<<endl;
+		cout<<BOLDWHITE<<filas[n].Proc<<RESET<<" ";// Inicia desde el primer vertice a seleccionar su adyacente.
 			for (it=filas[n].valores.begin(); it!=filas[n].valores.end(); ++it){
 				suma = filas[n].sPesos + it->second;
+				cout<<" "<<endl;
 				if(suma < auxSPesos[it->first-65]){
 					auxSPesos[it->first-65] = suma;
 					filas[it->first-65].sPesos = suma;
-					//~ cout<<suma<<endl;
-					
+					filas[it->first-65].anteSec.insert(pair<char, int>(filas[n].Proc, it->second));
+					cout<< filas[n].Proc <<" it->second "<< it->second <<endl;
 				}
-				cout<<BOLDCYAN<<filas[it->first-65].Proc<<" " << filas[it->first-65].sPesos <<RESET<<endl;
+				
+				cout<<BOLDCYAN<<filas[it->first-65].Proc<<" " << filas[it->first-65].sPesos <<RESET<<" ";
 			}
+			cout<<endl;
 	}
-	
-	
+	cout<<endl;
+	for(int n = 0; n < nl; n++){
+		cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
+		for (it=filas[n].anteSec.begin(); it!=filas[n].anteSec.end(); ++it){
+			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+		}
+	}
+
 	//~ cout<<endl;
 	//~ it = filas[1].valores.begin();
 	//~ for(int i = 66; i < 65+nl; i++){

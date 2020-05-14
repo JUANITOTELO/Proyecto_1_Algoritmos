@@ -1,15 +1,16 @@
 #ifndef __PR1GRAFOS_HPP
 #define __PR1GRAFOS_HPP
 
-#include <map>
-#include <queue>
-#include <list>
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include <iostream>
+#include <map>
+#include <list>
+#include <queue>
 #include <string>
+#include <iostream>
 #include "colores.hpp"
+
 #define MAX 100
 #define INFINITY 99999999
 
@@ -20,6 +21,12 @@ class Arista;// define la clase arista
 struct GrMat;// contiene un grafo y una estructura ArrM
 struct ArrM;// contiene 2 matrices una de tipo caracter y la otra de tipo entero
 struct MpV;// contiene el vertce de procedencia y valores de ady
+
+class saludos{
+	public:
+		saludos();
+		~saludos();
+};
 
 class Vertice{// crea apuntadores con el fin de acceder a el vertice
 	Vertice *sig;
@@ -83,6 +90,7 @@ struct MpV{
 	map<char,int> valores;
 	int sPesos;
 	list<char> keys;
+	map<char,int> anteSec;
 };
 
 #endif
