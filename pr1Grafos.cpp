@@ -234,6 +234,7 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 				if(suma < auxSPesos[it->first-65]){
 					auxSPesos[it->first-65] = suma;
 					filas[it->first-65].sPesos = suma;
+					filas[it->first-65].anteSec.erase(filas[it->first-65].anteSec.begin(), filas[it->first-65].anteSec.end());
 					filas[it->first-65].anteSec.insert(pair<char, int>(filas[n].Proc, it->second));
 					cout<< filas[n].Proc <<" it->second "<< it->second <<endl;
 				}
@@ -586,6 +587,8 @@ char Grafo::Dijkstra(char origen, char fin){
 MpV Grafo::reCorsF(char nombre){
 	return recordFP(getVertice(nombre));
 }
+
+
 
 
 void Grafo::anular(){

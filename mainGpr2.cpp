@@ -44,6 +44,7 @@ int main(){
         //~ switch ( opcion )
         //~ {
             //~ case 1: printf("\x1b[31m" "\n   imprimiendo... " "\x1b[0m");
+					
                     //~ printf("\n    aca ponemos la funcion");
                     //~ break;
 
