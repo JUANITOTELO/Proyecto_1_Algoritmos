@@ -7,7 +7,7 @@ int main(){
 	MpV filas[MAX];
 	map<char,int> mymap;
 	map<char, int>::iterator it;
-	int nl = 10;
+	int nl = 13;
 	//~ GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
 	GyM = myGrafo.crearMLUnid(myGrafo, nl);
 	cout<<endl;
@@ -15,7 +15,7 @@ int main(){
 	//~ cout<<endl;
 	myGrafo = GyM.g;
 	myGrafo.iAristas(GyM.m);
-	myGrafo.Dijkstra('A', 'E');
+	myGrafo.Dijkstra('A', 'M');
 	//~ for(char n = 65; n < 65+nl; n++){
 		//~ filas[n-65] = myGrafo.reCorsF(n);
 		//~ mymap = filas[n-65].valores;

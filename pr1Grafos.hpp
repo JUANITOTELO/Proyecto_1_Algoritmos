@@ -2,6 +2,7 @@
 #define __PR1GRAFOS_HPP
 
 #include <stdlib.h>
+#include <fstream>
 #include <stdio.h>
 #include <time.h>
 #include <map>
@@ -85,12 +86,19 @@ struct GrMat{
 	ArrM m;
 };
 
+struct VmF{ //Almacena los valores menores en los que ha estado el vertice 
+	char key;
+	int value;
+};
+
 struct MpV{
 	char Proc;
 	map<char,int> valores;
 	int sPesos;
 	list<char> keys;
 	map<char,int> anteSec;
+	VmF anteSecVmF;
 };
+
 
 #endif

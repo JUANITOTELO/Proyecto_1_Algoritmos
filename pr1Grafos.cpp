@@ -93,10 +93,10 @@ void Grafo::listAdya(){
 		cout<<"esta vacio";
 	}else{
 		while(verAux != nullptr){
-			cout<<verAux->nombre;
+			cout<<verAux->nombre<<":";
 			arAux = verAux->ady;
 			while(arAux != nullptr){// ~ Llega al ultimo elemento
-				cout<< GREEN <<"-"<< BOLDGREEN <<arAux->peso << RESET << GREEN <<"->"<< RESET <<arAux->ady->nombre;
+				cout<< GREEN <<" "<< BOLDGREEN <<arAux->peso << RESET << GREEN <<"->"<< RESET <<arAux->ady->nombre;
 				arAux = arAux->sig;
 			}
 			verAux = verAux->sig;
@@ -105,7 +105,7 @@ void Grafo::listAdya(){
 	}
 }
 
-//~ Función para recorrer el grafo 
+//~ Función para recorrer las aristas con menor peso
 MpV Grafo::recordFMmenor(Vertice *origen){
 	Vertice *veAux;
 	Arista *arAux;
@@ -180,7 +180,6 @@ MpV Grafo::recordFP(Vertice *origen){
 	
 	aux.Proc = n;
 	aux.valores = myminmap;
-	cout<<endl;
 	return aux;
 
 }
@@ -191,29 +190,35 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	map<char, int>::iterator it;
 	list<char> visitados;
 	list<char> noVisitados;
+	list<VmF> caminoF;
+	list<VmF>::iterator lit;
 	int auxSPesos[MAX];
 	int suma = 0;
 	int nl = size();
+	char nD = destino->nombre;
+	char nO = origen->nombre;
+	char auxKey = destino->nombre;
 	
 	for(char n = 65; n < 65+nl; n++){
-		if(n == 65){
+		if(n == origen->nombre){//Seleccionamos el primer valor en este caso A y lo que hacemos es marcarlo 
 			filas[n-65] = reCorsF(n);
 			mymap = filas[n-65].valores;
 			it = mymap.begin();
 			filas[n-65].sPesos = 0;
-			cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
+			//~ cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
 			visitados.push_back(filas[n-65].Proc);
-			for (it=mymap.begin(); it!=mymap.end(); ++it)
-				cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+			//~ for (it=mymap.begin(); it!=mymap.end(); ++it)
+				//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 			auxSPesos[n-65] = filas[n-65].sPesos;
 		}else{
 		filas[n-65] = reCorsF(n);
 		mymap = filas[n-65].valores;
-		cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
+		//~ cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
 		noVisitados.push_back(filas[n-65].Proc);
 		
-		for (it=mymap.begin(); it!=mymap.end(); ++it)
-			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+		//~ for (it=mymap.begin(); it!=mymap.end(); ++it)
+			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+		
 		}
 		auxSPesos[n-65] = filas[n-65].sPesos;
 	}
@@ -221,44 +226,55 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	//~ noVisitados.pop_front();
 	//~ filas[0].sPesos = 0;
 	//~ cout << "noVisitados contains:";
-	for (std::list<char>::iterator it=noVisitados.begin(); it!=noVisitados.end(); ++it)
-		std::cout << ' ' << *it;
+	//~ for (std::list<char>::iterator it=noVisitados.begin(); it!=noVisitados.end(); ++it)
+		//~ std::cout << ' ' << *it;
 	
 	cout<<endl;
 	
 	for(int n = 0; n < nl; n++){
-		cout<<BOLDWHITE<<filas[n].Proc<<RESET<<" ";// Inicia desde el primer vertice a seleccionar su adyacente.
+		//~ cout<<BOLDWHITE<<filas[n].Proc<<RESET<<" ";// Inicia desde el primer vertice a seleccionar su adyacente.
 			for (it=filas[n].valores.begin(); it!=filas[n].valores.end(); ++it){
 				suma = filas[n].sPesos + it->second;
-				cout<<" "<<endl;
+				//~ cout<<" "<<endl;
 				if(suma < auxSPesos[it->first-65]){
 					auxSPesos[it->first-65] = suma;
 					filas[it->first-65].sPesos = suma;
 					filas[it->first-65].anteSec.erase(filas[it->first-65].anteSec.begin(), filas[it->first-65].anteSec.end());
 					filas[it->first-65].anteSec.insert(pair<char, int>(filas[n].Proc, it->second));
-					cout<< filas[n].Proc <<" it->second "<< it->second <<endl;
+					filas[it->first-65].anteSecVmF.key = filas[n].Proc;
+					filas[it->first-65].anteSecVmF.value = it->second;
+					//~ cout<< filas[n].Proc <<" it->second "<< it->second <<endl;
 				}
 				
-				cout<<BOLDCYAN<<filas[it->first-65].Proc<<" " << filas[it->first-65].sPesos <<RESET<<" ";
+				//~ cout<<BOLDCYAN<<filas[it->first-65].Proc<<" " << filas[it->first-65].sPesos <<RESET<<" ";
 			}
-			cout<<endl;
+			//~ cout<<endl;
 	}
 	cout<<endl;
-	for(int n = 0; n < nl; n++){
+	for(int n = nl-1; n != -1; n--){
 		cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
-		for (it=filas[n].anteSec.begin(); it!=filas[n].anteSec.end(); ++it){
-			cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+		for (it=filas[n].anteSec.end(); it!=filas[n].anteSec.begin(); --it){
+			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+			if(filas[n].Proc == auxKey){
+				//~ cout<<BOLDRED<<filas[n].anteSecVmF.key<<filas[n].anteSecVmF.value<<RESET<<auxKey<<endl;
+				auxKey = filas[n].anteSecVmF.key;
+				caminoF.push_front(filas[n].anteSecVmF);
+			}
 		}
 	}
-
-	//~ cout<<endl;
-	//~ it = filas[1].valores.begin();
-	//~ for(int i = 66; i < 65+nl; i++){
-		//~ filas[i].sPesos = it->second;
-		//~ cout<< it->first << filas[i].sPesos <<" ";
-		//~ it++;
-	//~ } 
+	cout<<BOLDYELLOW<<"Camino mas corto de "<<RESET<<BOLDWHITE<<origen->nombre<<RESET<<BOLDYELLOW<<" a "<<RESET<<BOLDWHITE<<destino->nombre<<RESET<<BOLDYELLOW<<" con el total de la suma de pesos "<<RESET<<BOLDGREEN<<filas[nD-65].sPesos<<endl;
+	
+	
+	for(lit=caminoF.begin(); lit!=caminoF.end(); lit++){
+		if(lit->key == nO){
+			cout<<BOLDWHITE<<lit->key<<RESET<<BOLDGREEN<<"->"<<RESET;
+		}else{
+			cout<<BOLDWHITE<<lit->key<<RESET<<BOLDGREEN<<"->"<<RESET;
+		}
+	}cout<<BOLDWHITE<<nD<<RESET;
+	
 	cout<<endl;
+
 	
 	return 'A';
 }
