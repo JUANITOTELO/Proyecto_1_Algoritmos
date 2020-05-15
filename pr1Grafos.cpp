@@ -87,22 +87,28 @@ void Grafo::insertArista(Vertice *origen, Vertice *destino, int peso){
 void Grafo::listAdya(){
 	Vertice *verAux;
 	Arista *arAux;
-	
+	ofstream fs("lista_de_adyacencia.txt"); 
 	verAux = h;
 	if(h == nullptr){
 		cout<<"esta vacio";
 	}else{
+		cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
+		fs <<"Lista de Adyacencia de Grafo simple: \n"<< endl;
 		while(verAux != nullptr){
 			cout<<verAux->nombre<<":";
+			fs<<verAux->nombre<<":";
 			arAux = verAux->ady;
 			while(arAux != nullptr){// ~ Llega al ultimo elemento
 				cout<< GREEN <<" "<< BOLDGREEN <<arAux->peso << RESET << GREEN <<"->"<< RESET <<arAux->ady->nombre;
+				fs<<" "<< arAux->peso << "->"<< arAux->ady->nombre;
 				arAux = arAux->sig;
 			}
 			verAux = verAux->sig;
 			cout<<endl;
+			fs<<endl;
 		}
 	}
+	fs.close();
 }
 
 //~ Función para recorrer las aristas con menor peso
@@ -211,14 +217,14 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 				//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 			auxSPesos[n-65] = filas[n-65].sPesos;
 		}else{
-		filas[n-65] = reCorsF(n);
-		mymap = filas[n-65].valores;
-		//~ cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
-		noVisitados.push_back(filas[n-65].Proc);
-		
-		//~ for (it=mymap.begin(); it!=mymap.end(); ++it)
-			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
-		
+			filas[n-65] = reCorsF(n);
+			mymap = filas[n-65].valores;
+			//~ cout<<BOLDCYAN<<filas[n-65].Proc<<" " << filas[n-65].sPesos <<RESET<<endl;
+			noVisitados.push_back(filas[n-65].Proc);
+			
+			//~ for (it=mymap.begin(); it!=mymap.end(); ++it)
+				//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " => " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+			
 		}
 		auxSPesos[n-65] = filas[n-65].sPesos;
 	}
@@ -252,8 +258,20 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	}
 	cout<<endl;
 	for(int n = nl-1; n != -1; n--){
-		cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
+		//~ cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
 		for (it=filas[n].anteSec.end(); it!=filas[n].anteSec.begin(); --it){
+			if(filas[n].Proc == auxKey){
+				//~ cout<<BOLDRED<<filas[n].anteSecVmF.key<<filas[n].anteSecVmF.value<<RESET<<auxKey<<endl;
+				auxKey = filas[n].anteSecVmF.key;
+				caminoF.push_front(filas[n].anteSecVmF);
+			}
+			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
+		}
+	}
+	
+	for(int n = 0; n < nl; n++){
+		//~ cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
+		for (it=filas[n].anteSec.begin(); it!=filas[n].anteSec.end(); ++it){
 			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 			if(filas[n].Proc == auxKey){
 				//~ cout<<BOLDRED<<filas[n].anteSecVmF.key<<filas[n].anteSecVmF.value<<RESET<<auxKey<<endl;
@@ -262,6 +280,7 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 			}
 		}
 	}
+	
 	cout<<BOLDYELLOW<<"Camino mas corto de "<<RESET<<BOLDWHITE<<origen->nombre<<RESET<<BOLDYELLOW<<" a "<<RESET<<BOLDWHITE<<destino->nombre<<RESET<<BOLDYELLOW<<" con el total de la suma de pesos "<<RESET<<BOLDGREEN<<filas[nD-65].sPesos<<endl;
 	
 	
@@ -276,7 +295,7 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	cout<<endl;
 
 	
-	return 'A';
+	return nD;
 }
 
 void Grafo::eliminarArista(Vertice *origen, Vertice *destino){
@@ -479,6 +498,7 @@ GrMat Grafo::crearMatrizYlistAdyAlSimple(Grafo myGrafo, int nl){
 GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
 	ArrM matrizValores;
 	matrizValores.nl = nl;
+	ofstream fs("Matriz de Adyacencia de Grafo simple.txt");
 	char matrizAdy[MAX][MAX];
 	
 	/*En esta parte se crea la matriz de dimenciones nlxnl*/
@@ -542,48 +562,62 @@ GrMat Grafo::crearMLUnid(Grafo myGrafo, int nl){
 	matrizAdy[1][2] = matrizAdy[2][1] = num;
 	*/
 	cout<< BOLDWHITE <<"Matriz de Adyacencia de Grafo simple: \n"<< RESET <<endl;
+	fs<<"Matriz de Adyacencia de Grafo simple: \n"<<endl;
 	for(int i = 0; i<=nl; i++){
 		for(int j= 0; j<=nl; j++){
 			if(matrizAdy[j][i] == '0'){
 				cout<<" "<< RED <<matrizAdy[j][i]<< RESET;
+				fs<<" "<<matrizAdy[j][i];
 			}else{
 				cout<<" "<<matrizAdy[j][i];
+				fs<<" "<<matrizAdy[j][i];
 			}
 		}
 		cout<<endl;
+		fs<<endl;
 	}
-	cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 	myGrafo.listAdya();
 	cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+	fs.close();
 	return GrMat{myGrafo, matrizValores};
 }
 
 
 //~ Función para imprimir valores de las aristas
 void Grafo::iAristas(ArrM ma){
+	ofstream fs("Matriz con valores de las aristas del Grafo.txt");
 	cout<< BOLDWHITE <<"Matriz con valores de las aristas del Grafo: \n"<< RESET <<endl;
+	fs <<"Matriz con valores de las aristas del Grafo: \n"<<endl;
 	for(int i = 0; i<=ma.nl; i++){
 		for(int j= 0; j<=ma.nl; j++){
 			if(ma.matriz[j][i] == '0'){
 				cout<<" "<< RED<<ma.matriz[j][i]<< RESET;
+				fs<<" "<<ma.matriz[j][i];
 			}else{
 				cout<<" "<< ma.matriz[j][i];
+				fs<<" "<<ma.matriz[j][i];
 			}
 		}
 		cout<<endl;
+		fs<<endl;
 	}
 	cout<<endl;
+	fs.close();
 }
 
 //~ Función para imprimir valores de las aristas de forma entera
 void Grafo::eAristas(ArrM ma){
+	ofstream fs("Matriz con valores de tipo entero de las aristas del Grafo.txt");
 	cout<< BOLDWHITE <<"Matriz con valores en tipo entero de las aristas del Grafo: \n"<<RESET<<endl;
+	fs<<"Matriz con valores en tipo entero de las aristas del Grafo: \n"<<endl;
 	for(int i = 0; i<=ma.nl-1; i++){
 		for(int j= 0; j<=ma.nl-1; j++){
 			if(ma.matrizNumE[j][i] == 0){
 				cout<<" "<< RED << ma.matrizNumE[j][i] << RESET;
+				fs<<" "<<ma.matrizNumE[j][i];
 			}else{
 				cout<<" "<< ma.matrizNumE[j][i];
+				fs<<" "<<ma.matrizNumE[j][i];
 			}
 		}
 		cout<<endl;

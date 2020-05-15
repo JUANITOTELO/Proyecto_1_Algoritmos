@@ -13,7 +13,7 @@
 #include "colores.hpp"
 
 #define MAX 100
-#define INFINITY 99999999
+#define INFINITY 999999999
 
 using namespace std;
 
