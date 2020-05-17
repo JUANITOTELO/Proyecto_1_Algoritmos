@@ -9,7 +9,7 @@ int main(){
 	map<char,int> mymap;
 	map<char, int>::iterator it;
 	int nl;
-	cout<<BOLDWHITE<<"Ingrese el nÚmero de vertices para generar un grafo aleatrorio: "<<RESET<<BOLDGREEN;
+	cout<<BOLDWHITE<<"Ingrese el número de vértices para generar un grafo aleatrorio: "<<RESET<<BOLDGREEN;
 	cin>>nl;
 	cout<<RESET;
 	//~ GyM = myGrafo.crearMatrizYlistAdyAl(myGrafo, nl);
@@ -38,17 +38,17 @@ int main(){
         {
             case 1: printf("\x1b[31m" "\nimprimiendo... " "\x1b[0m");
 					myGrafo.iMatrizDeAdy(GyM.m);
-					cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+					cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
 
             case 2:printf( "\x1b[32m" "\nimprimiendo... ""\x1b[0m");
 					myGrafo.listAdya();
-					cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+					cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
                     
             case 3: printf( "\x1b[34m" "\nimprimiendo... ""\x1b[0m" );
 					myGrafo.iAristas(GyM.m);
-					cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+					cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
 
             case 4:printf( "\x1b[35m" "\ncamino mas corto... ""\x1b[0m" );
@@ -63,7 +63,7 @@ int main(){
 					}else{
 						myGrafo.Dijkstra(v1, v2);
 					}
-                    cout<<BOLDWHITE <<"Numero de Vertices: "<< RESET<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+                    cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
 
          }

@@ -21,7 +21,7 @@ int Grafo::size(){
 	int count = 0;
 	aux = h;
 	if(vacio()){
-		cout<<"Esta vacio.";
+		cout<<"Esta vacío";
 	}else{
 		while(aux != nullptr){
 			count++;
@@ -90,7 +90,7 @@ void Grafo::listAdya(){
 	ofstream fs("lista_de_adyacencia.txt"); 
 	verAux = h;
 	if(h == nullptr){
-		cout<<"esta vacio";
+		cout<<"Esta vacío";
 	}else{
 		cout<< BOLDWHITE <<"Lista de Adyacencia de Grafo simple: \n"<< RESET <<endl;
 		fs <<"Lista de Adyacencia de Grafo simple: \n"<< endl;
@@ -126,7 +126,7 @@ MpV Grafo::recordFMmenor(Vertice *origen){
 	char n = origen->nombre;
 	char na;
 	if(origen == nullptr){
-		cout<<"esta vacio";
+		cout<<"Esta vacío";
 	}
 	while(arAux != nullptr){
 		if(arAux->peso <= min){
@@ -170,7 +170,7 @@ MpV Grafo::recordFP(Vertice *origen){
 	char n = origen->nombre;
 	char na;
 	if(origen == nullptr){
-		cout<<"esta vacio";
+		cout<<"Esta vacío";
 	}else{
 		while(arAux != nullptr){
 		
@@ -269,7 +269,7 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 		}
 	}
-	fs<<"Caminos mas cortos desde "<< origen->nombre <<" a todos los nodos(vertices)."<<endl;
+	fs<<"Caminos más cortos desde "<< origen->nombre <<" a todos los nodos(vértices)."<<endl;
 	for(int n = 0; n < nl; n++){
 		//~ cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
 		fs<<filas[n].Proc<<" => "<< filas[n].sPesos<<endl;
@@ -283,8 +283,8 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 		}
 	}
 	
-	cout<<BOLDYELLOW<<"Camino mas corto de "<<RESET<<BOLDWHITE<<origen->nombre<<RESET<<BOLDYELLOW<<" a "<<RESET<<BOLDWHITE<<destino->nombre<<RESET<<BOLDYELLOW<<" con el total de la suma de pesos "<<RESET<<BOLDGREEN<<filas[nD-65].sPesos<<endl;
-	fs<<"Camino mas corto desde "<< origen->nombre << " a " <<destino->nombre <<" con el total de la suma de pesos "<<filas[nD-65].sPesos<<endl;
+	cout<<BOLDYELLOW<<"Camino más corto de "<<RESET<<BOLDWHITE<<origen->nombre<<RESET<<BOLDYELLOW<<" a "<<RESET<<BOLDWHITE<<destino->nombre<<RESET<<BOLDYELLOW<<" con el total de la suma de pesos "<<RESET<<BOLDGREEN<<filas[nD-65].sPesos<<endl;
+	fs<<"Camino más corto desde "<< origen->nombre << " a " <<destino->nombre <<" con el total de la suma de pesos "<<filas[nD-65].sPesos<<endl;
 	
 	for(lit=caminoF.begin(); lit!=caminoF.end(); lit++){
 		if(lit->key == nO){
@@ -307,7 +307,7 @@ void Grafo::eliminarArista(Vertice *origen, Vertice *destino){
 	int band = 0;
 	actual = origen->ady;
 	if(actual == nullptr){
-		cout<<"El vertice origen no tiene aristas."<<endl;
+		cout<<"El vértice origen no tiene aristas."<<endl;
 	}
 	else if(actual->ady == destino){
 		origen->ady = actual->sig;
@@ -325,7 +325,7 @@ void Grafo::eliminarArista(Vertice *origen, Vertice *destino){
 			actual = actual->sig;
 		}
 		if(band == 0){
-			cout<<RED<<"Los vertices no estan conectados."<<RESET<<endl;
+			cout<<RED<<"Los vértices no estan conectados."<<RESET<<endl;
 		}
 		
 	}
@@ -424,7 +424,7 @@ GrMat Grafo::crearMatrizYlistAdyAl(Grafo myGrafo, int nl){
 	}
 	cout<< BOLDWHITE <<"Lista de Adyacencia: \n"<< RESET;
 	myGrafo.listAdya();
-	cout<< BOLDWHITE <<"Numero de Vertices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
+	cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
 	
 	return GrMat{myGrafo, matrizValores};
 }
@@ -600,8 +600,12 @@ void Grafo::iMatrizDeAdy(ArrM ma){
 				cout<<" "<< RED<<ma.matriz[j][i]<< RESET;
 				fs<<" "<<ma.matriz[j][i];
 			}else if(ma.matriz[j][i] < 65){
-				cout<<" "<< 1;
-				fs<<" "<< 1;
+				if(ma.matriz[j][i] == ' '){
+					cout<<"  ";
+				}else{
+					cout<<" "<< 1;
+					fs<<" "<< 1;
+				}
 			}else{
 				cout<<" "<<ma.matriz[j][i];
 				fs<<" "<<ma.matriz[j][i];
@@ -651,7 +655,7 @@ MpV Grafo::reCorsF(char nombre){
 
 
 void Grafo::anular(){
-	cout<< BOLDRED <<"Eliminado grafo.. \n"<< RESET <<endl;
+	cout<< BOLDRED <<"Eliminando grafo.. \n"<< RESET <<endl;
 	Vertice *aux;
 	while(h != nullptr){
 		aux = h;
