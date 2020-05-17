@@ -599,9 +599,12 @@ void Grafo::iMatrizDeAdy(ArrM ma){
 			if(ma.matriz[j][i] == '0'){
 				cout<<" "<< RED<<ma.matriz[j][i]<< RESET;
 				fs<<" "<<ma.matriz[j][i];
-			}else{
+			}else if(ma.matriz[j][i] < 65){
 				cout<<" "<< 1;
 				fs<<" "<< 1;
+			}else{
+				cout<<" "<<ma.matriz[j][i];
+				fs<<" "<<ma.matriz[j][i];
 			}
 		}
 		cout<<endl;
