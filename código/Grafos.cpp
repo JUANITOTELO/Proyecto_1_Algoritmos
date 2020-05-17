@@ -191,6 +191,7 @@ MpV Grafo::recordFP(Vertice *origen){
 }
 
 char Grafo::dijkstra(Vertice *origen, Vertice *destino){
+	ofstream fs("Dijkstra.txt"); 
 	MpV filas[MAX];
 	map<char,int> mymap;
 	map<char, int>::iterator it;
@@ -268,9 +269,10 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 		}
 	}
-	
+	fs<<"Caminos mas cortos desde "<< origen->nombre <<" a todos los nodos(vertices)."<<endl;
 	for(int n = 0; n < nl; n++){
 		//~ cout<<filas[n].Proc<<BOLDCYAN<<"=>"<<RESET<<filas[n].sPesos<<endl;
+		fs<<filas[n].Proc<<" => "<< filas[n].sPesos<<endl;
 		for (it=filas[n].anteSec.begin(); it!=filas[n].anteSec.end(); ++it){
 			//~ cout << BOLDMAGENTA <<it->first <<RESET << BOLDGREEN << " -> " << RESET << BOLDYELLOW <<it->second << RESET << '\n';
 			if(filas[n].Proc == auxKey){
@@ -282,19 +284,21 @@ char Grafo::dijkstra(Vertice *origen, Vertice *destino){
 	}
 	
 	cout<<BOLDYELLOW<<"Camino mas corto de "<<RESET<<BOLDWHITE<<origen->nombre<<RESET<<BOLDYELLOW<<" a "<<RESET<<BOLDWHITE<<destino->nombre<<RESET<<BOLDYELLOW<<" con el total de la suma de pesos "<<RESET<<BOLDGREEN<<filas[nD-65].sPesos<<endl;
-	
+	fs<<"Camino mas corto desde "<< origen->nombre << " a " <<destino->nombre <<" con el total de la suma de pesos "<<filas[nD-65].sPesos<<endl;
 	
 	for(lit=caminoF.begin(); lit!=caminoF.end(); lit++){
 		if(lit->key == nO){
 			cout<<BOLDWHITE<<lit->key<<RESET<<BOLDGREEN<<"->"<<RESET;
+			fs<<lit->key<<"->";
 		}else{
 			cout<<BOLDWHITE<<lit->key<<RESET<<BOLDGREEN<<"->"<<RESET;
+			fs<<lit->key<<"->";
 		}
 	}cout<<BOLDWHITE<<nD<<RESET;
-	
+	fs<<nD;
 	cout<<endl;
-
-	
+	fs<<endl;
+	fs.close();
 	return nD;
 }
 
