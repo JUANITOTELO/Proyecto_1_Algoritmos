@@ -1,18 +1,19 @@
-Caminos más cortos desde N a todos los nodos(vértices).
-A => 1
+Caminos más cortos desde D a todos los nodos(vértices).
+A => 3
 B => 2
-C => 4
-D => 4
-E => 1
-F => 6
-G => 5
-H => 4
-I => 6
-J => 6
-K => 5
-L => 12
-M => 4
-N => 0
-O => 3
-Camino más corto desde N a O con el total de la suma de pesos 3
-N->O
+C => 3
+D => 0
+E => 3
+F => 3
+G => 2
+H => 3
+I => 2
+J => 3
+K => 1
+L => 3
+M => 2
+N => 1
+O => 2
+P => 1
+Camino más corto desde D a J con el total de la suma de pesos 3
+D->G->J
