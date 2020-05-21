@@ -36,22 +36,26 @@ int main(){
 
         switch ( opcion )
         {
-            case 1: printf("\x1b[31m" "\nimprimiendo... " "\x1b[0m");
+            case 1: system("clear");
+					printf("\x1b[31m" "\nimprimiendo... \n" "\x1b[0m");
 					myGrafo.iMatrizDeAdy(GyM.m);
 					cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
 
-            case 2:printf( "\x1b[32m" "\nimprimiendo... ""\x1b[0m");
+            case 2:system("clear");
+					printf( "\x1b[32m" "\nimprimiendo... \n""\x1b[0m");
 					myGrafo.listAdya();
 					cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
                     
-            case 3: printf( "\x1b[34m" "\nimprimiendo... ""\x1b[0m" );
+            case 3: system("clear");
+					printf( "\x1b[34m" "\nimprimiendo... \n""\x1b[0m" );
 					myGrafo.iAristas(GyM.m);
 					cout<< BOLDWHITE <<"Número de Vértices: "<< BOLDYELLOW <<myGrafo.size()<< RESET <<endl;
                     break;
 
-            case 4:printf( "\x1b[35m" "\ncamino mas corto... ""\x1b[0m" );
+            case 4: system("clear");
+					printf( "\x1b[35m" "\ncamino mas corto... \n""\x1b[0m" );
 					cout<<endl<<"    Ingrese el origen:"<<endl;
 					cout<<"    ";
 					cin>>v1;
